@@ -297,7 +297,11 @@ namespace BililiveRecorder.Core
                     };
 
                     _stream = await _response.Content.ReadAsStreamAsync();
-                    // _stream.ReadTimeout = 3 * 1000;
+                    try
+                    {
+                        _stream.ReadTimeout = 3 * 1000;
+                    }
+                    catch (Exception) { }
 
                     StreamDownloadTask = Task.Run(_ReadStreamLoop);
                     TriggerPropertyChanged(nameof(IsRecording));
